@@ -1,4 +1,4 @@
-package hello;
+package com.sloydev.sevibus.api;
 
 public class Greeting {
 
