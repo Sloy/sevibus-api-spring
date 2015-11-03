@@ -3,8 +3,6 @@ package com.sloydev.sevibus.api.data;
 
 import com.sloydev.sevibus.api.domain.ArrivalTimes;
 import com.sloydev.sevibus.api.domain.ArrivalTimesRepository;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.stereotype.Component;
 
 import java.util.Random;
 
