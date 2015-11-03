@@ -10,7 +10,7 @@ import javax.xml.parsers.SAXParserFactory;
 
 public class RepoFactory {
 
-    private static final boolean mock = true;
+    private static final boolean mock = false;
 
     public static ArrivalTimesRepository getArrivalTimesRepository() {
         if (mock) {
