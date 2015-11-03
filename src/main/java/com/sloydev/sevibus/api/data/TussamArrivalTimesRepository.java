@@ -1,21 +1,18 @@
 package com.sloydev.sevibus.api.data;
 
 
-import com.sloydev.sevibus.api.data.TussamArrivalsSaxHandler;
 import com.sloydev.sevibus.api.domain.ArrivalTimes;
 import com.sloydev.sevibus.api.domain.ArrivalTimesException;
 import com.sloydev.sevibus.api.domain.ArrivalTimesRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.xml.sax.SAXException;
 
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
-
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParser;
 
 public class TussamArrivalTimesRepository implements ArrivalTimesRepository {
 
@@ -25,7 +22,7 @@ public class TussamArrivalTimesRepository implements ArrivalTimesRepository {
     private final SAXParser saxParser;
     private final TussamArrivalsSaxHandler tussamSaxHandler;
 
-    @Autowired public TussamArrivalTimesRepository(SAXParser saxParser, TussamArrivalsSaxHandler tussamSaxHandler) {
+    public TussamArrivalTimesRepository(SAXParser saxParser, TussamArrivalsSaxHandler tussamSaxHandler) {
         this.saxParser = saxParser;
         this.tussamSaxHandler = tussamSaxHandler;
     }

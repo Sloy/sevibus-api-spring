@@ -41,32 +41,32 @@ public class TussamArrivalsSaxHandler extends DefaultHandler {
 
 	@Override
 	public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
-		if(localName.equals("e1")){
+		if(qName.equals("e1")){
 			tmpBus = new Bus();
-		}else if(localName.equals("e2")){
+		}else if(qName.equals("e2")){
 			tmpBus = new Bus();
-		}else if(localName.equals("minutos")){
+		}else if(qName.equals("minutos")){
 			build = Builder.TIEMPO;
-		}else if(localName.equals("metros")){
+		}else if(qName.equals("metros")){
 			build = Builder.DISTANCIA;
 		}
 	}
 
 	@Override
 	public void endElement(String uri, String localName, String qName) throws SAXException {
-		if(localName.equals("e1")){
+		if(qName.equals("e1")){
 			bus1 = tmpBus;
 			tmpBus = null;
-		}else if(localName.equals("e2")){
+		}else if(qName.equals("e2")){
 			bus2 = tmpBus;
 			tmpBus = null;
-		}else if(localName.equals("minutos") || localName.equals("metros")){
+		}else if(qName.equals("minutos") || qName.equals("metros")){
 			build = Builder.NO;
 		}
 	}
 
     public TwoBuses getResult() {
-        return new TwoBuses(bus1, bus2);
+		return new TwoBuses(bus1, bus2);
     }
 
     class Bus {
