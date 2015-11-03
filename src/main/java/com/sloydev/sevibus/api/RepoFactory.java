@@ -4,6 +4,7 @@ import com.sloydev.sevibus.api.data.MockArrivalTimesRepository;
 import com.sloydev.sevibus.api.data.TussamArrivalTimesRepository;
 import com.sloydev.sevibus.api.data.TussamArrivalsSaxHandler;
 import com.sloydev.sevibus.api.domain.ArrivalTimesRepository;
+import org.springframework.context.annotation.Bean;
 
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;

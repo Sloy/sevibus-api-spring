@@ -1,16 +1,19 @@
 package com.sloydev.sevibus.api.data;
 
 
+import org.springframework.stereotype.Component;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
+@Component
 public class TussamArrivalsSaxHandler extends DefaultHandler {
 
 	private Bus tmpBus, bus1, bus2;
 	private Builder build = Builder.NO;
 
-    public void clear() {
+
+	public void clear() {
         tmpBus = null;
         bus1 = null;
         bus2 = null;

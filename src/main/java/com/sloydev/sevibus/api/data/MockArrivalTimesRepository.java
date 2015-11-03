@@ -3,9 +3,10 @@ package com.sloydev.sevibus.api.data;
 
 import com.sloydev.sevibus.api.domain.ArrivalTimes;
 import com.sloydev.sevibus.api.domain.ArrivalTimesRepository;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.stereotype.Component;
 
 import java.util.Random;
-
 
 public class MockArrivalTimesRepository implements ArrivalTimesRepository {
 
@@ -19,7 +20,7 @@ public class MockArrivalTimesRepository implements ArrivalTimesRepository {
 
     public ArrivalTimes getArrivals(Integer busStopNumber, String lineName) {
         try {
-            Thread.sleep((long) (random.nextFloat() * 800.0f + 200));
+            Thread.sleep((long) (random.nextFloat() * 800.0f + 1200));
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
