@@ -26,7 +26,9 @@ public class CachedArrivalRepository implements ArrivalTimesRepository {
         String key = busStopNumber + lineName;
         ArrivalTimes cached = cache.get(key);
         if (cached != null) {
-            cached.setDataSource(SOURCE_PREFIX + cached.getDataSource());
+            if (!cached.getDataSource().startsWith(SOURCE_PREFIX)) {
+                cached.setDataSource(SOURCE_PREFIX + cached.getDataSource());
+            }
             return cached;
         } else {
             ArrivalTimes updated = real.getArrivals(busStopNumber, lineName);
