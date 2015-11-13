@@ -10,6 +10,8 @@ public class ArrivalTimes {
 
     private boolean loading;
 
+    private String dataSource;
+
 
     public boolean isAvailable() {
         return nextBus!= null && nextBus.status != Status.NOT_AVAILABLE;
@@ -53,6 +55,14 @@ public class ArrivalTimes {
 
     public void setLoading(boolean loading) {
         this.loading = loading;
+    }
+
+    public String getDataSource() {
+        return dataSource;
+    }
+
+    public void setDataSource(String dataSource) {
+        this.dataSource = dataSource;
     }
 
     public enum Status {

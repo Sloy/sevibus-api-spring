@@ -3,14 +3,14 @@ package com.sloydev.sevibus.api.data.mock;
 
 import com.sloydev.sevibus.api.domain.ArrivalTimes;
 import com.sloydev.sevibus.api.domain.ArrivalTimesRepository;
-import com.sloydev.sevibus.api.domain.MockArrivalTimes;
 
 import java.util.Random;
 
 public class MockArrivalTimesRepository implements ArrivalTimesRepository {
 
+    private static final String SOURCE_NAME = "mock";
     private static final float ERROR_PERCENTAGE = 0f;
-//    private static final float ERROR_PERCENTAGE = 0.15f;
+    // private static final float ERROR_PERCENTAGE = 0.15f;
     private final Random random;
 
     public MockArrivalTimesRepository() {
@@ -32,11 +32,12 @@ public class MockArrivalTimesRepository implements ArrivalTimesRepository {
             return nightArrival(busStopNumber, lineName);
         }
 
-        ArrivalTimes arrivals = new MockArrivalTimes();
+        ArrivalTimes arrivals = new ArrivalTimes();
         arrivals.setBusStopNumber(busStopNumber);
         arrivals.setBusLineName(lineName);
         arrivals.setNextBus(getNextBus());
         arrivals.setSecondBus(getSecondBus());
+        arrivals.setDataSource(SOURCE_NAME);
         return arrivals;
     }
 
@@ -57,7 +58,7 @@ public class MockArrivalTimesRepository implements ArrivalTimesRepository {
     private ArrivalTimes.BusArrival getSecondBus() {
         ArrivalTimes.BusArrival busArrival = new ArrivalTimes.BusArrival(ArrivalTimes.Status.ESTIMATE);
         busArrival.setDistanceInMeters(1428);
-        busArrival.setTimeInMinutes(random.nextInt(60)+10);
+        busArrival.setTimeInMinutes(random.nextInt(60) + 10);
         return busArrival;
     }
 }

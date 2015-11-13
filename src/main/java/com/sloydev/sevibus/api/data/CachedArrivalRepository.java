@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 public class CachedArrivalRepository implements ArrivalTimesRepository {
 
     private static final int CACHE_TTL = 10 * 1000;
+    public static final String SOURCE_PREFIX = "cached_";
 
     private final ArrivalTimesRepository real = RepoFactory.getArrivalTimesRepository();
     private final QNCache cache;
@@ -28,6 +29,7 @@ public class CachedArrivalRepository implements ArrivalTimesRepository {
             return cached;
         } else {
             ArrivalTimes updated = real.getArrivals(busStopNumber, lineName);
+            updated.setDataSource(SOURCE_PREFIX + updated.getDataSource());
             cache.set(key, updated, CACHE_TTL);
             return updated;
         }

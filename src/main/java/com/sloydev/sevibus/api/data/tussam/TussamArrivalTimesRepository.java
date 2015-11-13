@@ -18,6 +18,7 @@ public class TussamArrivalTimesRepository implements ArrivalTimesRepository {
 
     private static final String URL_SOAP_DINAMICA = "http://www.infobustussam.com:9001/services/dinamica.asmx";
     private static final String BODY_SOAP_TIEMPOS = "<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\"><soap:Body><GetPasoParada xmlns=\"http://tempuri.org/\"><linea>%1s</linea><parada>%2s</parada><status>1</status></GetPasoParada></soap:Body></soap:Envelope>"; // 2.parada
+    private static final String SOURCE_NAME = "tussam";
 
     private final SAXParser saxParser;
     private final TussamArrivalsSaxHandler tussamSaxHandler;
@@ -32,6 +33,7 @@ public class TussamArrivalTimesRepository implements ArrivalTimesRepository {
             InputStream arrivalsInputStream = getArrivalsInputStream(lineName, String.valueOf(busStopNumber));
             ArrivalTimes arrivals = createEmptyArrival(busStopNumber, lineName);
             populateArrivalTimes(arrivals, arrivalsInputStream);
+            arrivals.setDataSource(SOURCE_NAME);
             return arrivals;
         } catch (Exception e) {
             throw new ArrivalTimesException(e, busStopNumber, lineName);
