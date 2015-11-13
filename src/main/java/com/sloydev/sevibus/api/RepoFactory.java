@@ -1,8 +1,8 @@
 package com.sloydev.sevibus.api;
 
-import com.sloydev.sevibus.api.data.MockArrivalTimesRepository;
-import com.sloydev.sevibus.api.data.TussamArrivalTimesRepository;
-import com.sloydev.sevibus.api.data.TussamArrivalsSaxHandler;
+import com.sloydev.sevibus.api.data.mock.MockArrivalTimesRepository;
+import com.sloydev.sevibus.api.data.tussam.TussamArrivalTimesRepository;
+import com.sloydev.sevibus.api.data.tussam.TussamArrivalsSaxHandler;
 import com.sloydev.sevibus.api.domain.ArrivalTimesRepository;
 
 import javax.xml.parsers.SAXParser;

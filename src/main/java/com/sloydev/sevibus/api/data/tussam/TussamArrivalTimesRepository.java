@@ -1,4 +1,4 @@
-package com.sloydev.sevibus.api.data;
+package com.sloydev.sevibus.api.data.tussam;
 
 
 import com.sloydev.sevibus.api.domain.ArrivalTimes;
