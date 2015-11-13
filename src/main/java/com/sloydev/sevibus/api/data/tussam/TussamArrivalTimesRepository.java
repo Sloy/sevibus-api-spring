@@ -4,15 +4,13 @@ package com.sloydev.sevibus.api.data.tussam;
 import com.sloydev.sevibus.api.domain.ArrivalTimes;
 import com.sloydev.sevibus.api.domain.ArrivalTimesException;
 import com.sloydev.sevibus.api.domain.ArrivalTimesRepository;
+import com.squareup.okhttp.*;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
 
 public class TussamArrivalTimesRepository implements ArrivalTimesRepository {
 
@@ -82,24 +80,18 @@ public class TussamArrivalTimesRepository implements ArrivalTimesRepository {
     }
 
     private InputStream getArrivalsInputStream(String lineName, String stopNumber) throws IOException {
-        //TODO mejor alternativa? OkHttp?
-        URL url = new URL(URL_SOAP_DINAMICA);
-        HttpURLConnection c = (HttpURLConnection) url.openConnection();
-        c.setRequestMethod("POST");
-        c.setReadTimeout(15 * 1000);
-        c.setDoOutput(true);
-        // c.setFixedLengthStreamingMode(contentLength)
-        c.setUseCaches(false);
-        c.setRequestProperty("Content-Type", "text/xml");
-        c.connect();
+        OkHttpClient client = new OkHttpClient();
 
-        OutputStreamWriter wr = new OutputStreamWriter(c.getOutputStream());
-        String data = String.format(BODY_SOAP_TIEMPOS, lineName, stopNumber);
-        wr.write(data);
-        wr.flush();
+        MediaType mediaType = MediaType.parse("text/xml");
+        RequestBody body = RequestBody.create(mediaType, String.format(BODY_SOAP_TIEMPOS, lineName, stopNumber));
+        Request request = new Request.Builder()
+                .url(URL_SOAP_DINAMICA)
+                .post(body)
+                .addHeader("content-type", "text/xml")
+                .addHeader("cache-control", "no-cache")
+                .build();
 
-        return c.getInputStream();
-
+        Response response = client.newCall(request).execute();
+        return response.body().byteStream();
     }
-
 }
