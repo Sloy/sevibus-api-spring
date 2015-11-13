@@ -3,6 +3,7 @@ package com.sloydev.sevibus.api.data.mock;
 
 import com.sloydev.sevibus.api.domain.ArrivalTimes;
 import com.sloydev.sevibus.api.domain.ArrivalTimesRepository;
+import com.sloydev.sevibus.api.domain.MockArrivalTimes;
 
 import java.util.Random;
 
@@ -31,7 +32,7 @@ public class MockArrivalTimesRepository implements ArrivalTimesRepository {
             return nightArrival(busStopNumber, lineName);
         }
 
-        ArrivalTimes arrivals = new ArrivalTimes();
+        ArrivalTimes arrivals = new MockArrivalTimes();
         arrivals.setBusStopNumber(busStopNumber);
         arrivals.setBusLineName(lineName);
         arrivals.setNextBus(getNextBus());
