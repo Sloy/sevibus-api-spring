@@ -4,7 +4,9 @@ package com.sloydev.sevibus.api.data.mock;
 import com.sloydev.sevibus.api.domain.ArrivalTimes;
 import com.sloydev.sevibus.api.domain.ArrivalTimesRepository;
 
+import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 public class MockArrivalTimesRepository implements ArrivalTimesRepository {
 
@@ -17,7 +19,8 @@ public class MockArrivalTimesRepository implements ArrivalTimesRepository {
         random = new Random();
     }
 
-    public ArrivalTimes getArrivals(Integer busStopNumber, String lineName) {
+    @Override
+    public ArrivalTimes getArrival(Integer busStopNumber, String lineName) {
         try {
             Thread.sleep((long) (random.nextFloat() * 800.0f + 1200));
         } catch (InterruptedException e) {
@@ -39,6 +42,13 @@ public class MockArrivalTimesRepository implements ArrivalTimesRepository {
         arrivals.setSecondBus(getSecondBus());
         arrivals.setDataSource(SOURCE_NAME);
         return arrivals;
+    }
+
+    @Override
+    public List<ArrivalTimes> getArrivals(Integer busStopNumber, List<String> lines) {
+        return lines.stream()
+          .map(linea -> getArrival(busStopNumber, linea))
+          .collect(Collectors.toList());
     }
 
     private ArrivalTimes nightArrival(Integer busStopNumber, String lineName) {

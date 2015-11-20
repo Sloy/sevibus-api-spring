@@ -11,6 +11,9 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class TussamArrivalTimesRepository implements ArrivalTimesRepository {
 
@@ -26,7 +29,7 @@ public class TussamArrivalTimesRepository implements ArrivalTimesRepository {
         this.tussamSaxHandler = tussamSaxHandler;
     }
 
-    @Override public ArrivalTimes getArrivals(Integer busStopNumber, String lineName) {
+    @Override public ArrivalTimes getArrival(Integer busStopNumber, String lineName) {
         try {
             InputStream arrivalsInputStream = getArrivalsInputStream(lineName, String.valueOf(busStopNumber));
             ArrivalTimes arrivals = createEmptyArrival(busStopNumber, lineName);
@@ -36,6 +39,13 @@ public class TussamArrivalTimesRepository implements ArrivalTimesRepository {
         } catch (Exception e) {
             throw new ArrivalTimesException(e, busStopNumber, lineName);
         }
+    }
+
+    @Override
+    public List<ArrivalTimes> getArrivals(Integer busStopNumber, List<String> lines) {
+        return lines.stream()
+          .map(linea -> getArrival(busStopNumber, linea))
+          .collect(Collectors.toList());
     }
 
     private void populateArrivalTimes(ArrivalTimes arrivals, InputStream arrivalsInputStream) throws ParserConfigurationException, SAXException, IOException {

@@ -7,6 +7,8 @@ import com.sloydev.sevibus.api.domain.ArrivalTimesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class CachedArrivalRepository implements ArrivalTimesRepository {
 
@@ -22,18 +24,36 @@ public class CachedArrivalRepository implements ArrivalTimesRepository {
     }
 
     @Override
-    public ArrivalTimes getArrivals(Integer busStopNumber, String lineName) {
+    public ArrivalTimes getArrival(Integer busStopNumber, String lineName) {
         String key = busStopNumber + lineName;
         ArrivalTimes cached = cache.get(key);
         if (cached != null) {
-            if (!cached.getDataSource().startsWith(SOURCE_PREFIX)) {
-                cached.setDataSource(SOURCE_PREFIX + cached.getDataSource());
-            }
+            markDatasourceAsCached(cached);
             return cached;
         } else {
-            ArrivalTimes updated = real.getArrivals(busStopNumber, lineName);
+            ArrivalTimes updated = real.getArrival(busStopNumber, lineName);
             cache.set(key, updated, CACHE_TTL);
             return updated;
+        }
+    }
+
+    @Override
+    public List<ArrivalTimes> getArrivals(Integer busStopNumber, List<String> lines) {
+        String key = busStopNumber.toString();
+        List<ArrivalTimes> cachedList = cache.get(key);
+        if (cachedList != null) {
+            cachedList.stream().forEach(this::markDatasourceAsCached);
+            return cachedList;
+        } else {
+            List<ArrivalTimes> updated = real.getArrivals(busStopNumber, lines);
+            cache.set(key, updated, CACHE_TTL);
+            return updated;
+        }
+    }
+
+    private void markDatasourceAsCached(ArrivalTimes cached) {
+        if (!cached.getDataSource().startsWith(SOURCE_PREFIX)) {
+            cached.setDataSource(SOURCE_PREFIX + cached.getDataSource());
         }
     }
 }
