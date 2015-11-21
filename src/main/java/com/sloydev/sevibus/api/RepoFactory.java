@@ -34,6 +34,11 @@ public class RepoFactory {
         }
     }
 
+    @Bean(autowire = Autowire.BY_TYPE)
+    private static AppTussamApi provideApi() {
+        return new AppTussamApi();
+    }
+
     private static TussamArrivalsSaxHandler provideArrivalsSaxHandler() {
         return new TussamArrivalsSaxHandler();
     }
