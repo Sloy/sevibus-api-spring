@@ -16,7 +16,7 @@ import javax.xml.parsers.SAXParserFactory;
 @Configuration
 public class RepoFactory {
 
-    private static final boolean mock = false;
+    private static final boolean mock = true;
     private static final boolean legacy = false;
 
     @Bean

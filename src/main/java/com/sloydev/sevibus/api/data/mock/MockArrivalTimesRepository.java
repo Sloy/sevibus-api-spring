@@ -3,6 +3,9 @@ package com.sloydev.sevibus.api.data.mock;
 
 import com.sloydev.sevibus.api.domain.ArrivalTimes;
 import com.sloydev.sevibus.api.domain.ArrivalTimesRepository;
+import org.springframework.stereotype.Repository;
+import rx.Observable;
+import rx.schedulers.Schedulers;
 
 import java.util.List;
 import java.util.Random;
@@ -21,8 +24,10 @@ public class MockArrivalTimesRepository implements ArrivalTimesRepository {
 
     @Override
     public ArrivalTimes getArrival(Integer busStopNumber, String lineName) {
+        System.out.println("ARRIVAL: "+Thread.currentThread());
         try {
-            Thread.sleep((long) (random.nextFloat() * 800.0f + 1200));
+//            Thread.sleep((long) (random.nextFloat() * 800.0f + 1200));
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -32,7 +37,7 @@ public class MockArrivalTimesRepository implements ArrivalTimesRepository {
         }
 
         if (lineName.startsWith("A")) {
-            return nightArrival(busStopNumber, lineName);
+//            return nightArrival(busStopNumber, lineName);
         }
 
         ArrivalTimes arrivals = new ArrivalTimes();
@@ -44,11 +49,16 @@ public class MockArrivalTimesRepository implements ArrivalTimesRepository {
         return arrivals;
     }
 
+    private Observable<ArrivalTimes> getArrivalO(Integer parada, String line) {
+        return Observable.defer(() -> Observable.just(getArrival(parada, line))).subscribeOn(Schedulers.io());
+    }
+
     @Override
     public List<ArrivalTimes> getArrivals(Integer busStopNumber, List<String> lines) {
-        return lines.stream()
-          .map(linea -> getArrival(busStopNumber, linea))
-          .collect(Collectors.toList());
+        return Observable.from(lines)
+          .flatMap(l -> getArrivalO(busStopNumber, l))
+          .observeOn(Schedulers.immediate())
+          .toList().toBlocking().single();
     }
 
     private ArrivalTimes nightArrival(Integer busStopNumber, String lineName) {
@@ -59,7 +69,7 @@ public class MockArrivalTimesRepository implements ArrivalTimesRepository {
     }
 
     private ArrivalTimes.BusArrival getNextBus() {
-        ArrivalTimes.BusArrival busArrival = new ArrivalTimes.BusArrival(ArrivalTimes.Status.ESTIMATE);
+        ArrivalTimes.BusArrival busArrival = new ArrivalTimes.BusArrival(ArrivalTimes.Status.IMMINENT);
         busArrival.setDistanceInMeters(100);
         busArrival.setTimeInMinutes(random.nextInt(15));
         return busArrival;

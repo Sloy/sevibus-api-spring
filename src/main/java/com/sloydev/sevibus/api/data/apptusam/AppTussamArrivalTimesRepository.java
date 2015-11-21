@@ -31,6 +31,10 @@ public class AppTussamArrivalTimesRepository implements ArrivalTimesRepository {
             List<TiempoLinea> tiempos = envelope.body.tiemposNodoResponse.tiempoNodo.tiempoLineas;
             return tiempos.stream()
               .map(this::arrivalFromTiempo)
+              .map(a -> {
+                  a.setBusStopNumber(busStopNumber);
+                  return a;
+              })
               .collect(Collectors.toList());
         } catch (Exception e) {
             throw new ArrivalTimesException(e, busStopNumber, "all");
@@ -41,7 +45,6 @@ public class AppTussamArrivalTimesRepository implements ArrivalTimesRepository {
         ArrivalTimes arrivalTimes = new ArrivalTimes();
         arrivalTimes.setDataSource("apptussam");
         arrivalTimes.setBusLineName(tiempoLinea.label);
-        arrivalTimes.setBusStopNumber(99);
         arrivalTimes.setNextBus(busFromEstimacion(tiempoLinea.estimacion1));
         arrivalTimes.setSecondBus(busFromEstimacion(tiempoLinea.estimacion2));
         return arrivalTimes;
