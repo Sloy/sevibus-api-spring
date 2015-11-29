@@ -41,6 +41,7 @@ public class AppTussamArrivalTimesRepository implements ArrivalTimesRepository {
         ArrivalTimes arrivalTimes = new ArrivalTimes();
         arrivalTimes.setDataSource("apptussam");
         arrivalTimes.setBusLineName(tiempoLinea.label);
+        //TODO usar número de parada en la request
         arrivalTimes.setBusStopNumber(99);
         arrivalTimes.setNextBus(busFromEstimacion(tiempoLinea.estimacion1));
         arrivalTimes.setSecondBus(busFromEstimacion(tiempoLinea.estimacion2));

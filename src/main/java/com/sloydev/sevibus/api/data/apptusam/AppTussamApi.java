@@ -15,7 +15,7 @@ public class AppTussamApi {
 
     public Envelope get(String parada) throws Exception {
         Serializer serializer = new Persister();
-        return serializer.read(Envelope.class, getArrivalsInputStream("50"), false);
+        return serializer.read(Envelope.class, getArrivalsInputStream(parada), false);
     }
 
     private InputStream getArrivalsInputStream(String stopNumber) throws IOException {
