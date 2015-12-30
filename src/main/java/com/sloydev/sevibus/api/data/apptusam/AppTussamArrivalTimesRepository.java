@@ -13,6 +13,8 @@ import java.util.stream.Collectors;
 
 public class AppTussamArrivalTimesRepository implements ArrivalTimesRepository {
 
+    private static final String SOURCE_NAME = "apptussam";
+
     private final AppTussamApi appTussamApi;
 
     public AppTussamArrivalTimesRepository(AppTussamApi appTussamApi) {
@@ -39,7 +41,7 @@ public class AppTussamArrivalTimesRepository implements ArrivalTimesRepository {
 
     private ArrivalTimes arrivalFromTiempo(TiempoLinea tiempoLinea, int numeroParada) {
         ArrivalTimes arrivalTimes = new ArrivalTimes();
-        arrivalTimes.setDataSource("apptussam");
+        arrivalTimes.setDataSource(SOURCE_NAME);
         arrivalTimes.setBusLineName(tiempoLinea.label);
         arrivalTimes.setBusStopNumber(numeroParada);
         arrivalTimes.setNextBus(busFromEstimacion(tiempoLinea.estimacion1));
