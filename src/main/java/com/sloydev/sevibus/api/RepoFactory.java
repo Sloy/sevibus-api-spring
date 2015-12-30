@@ -19,7 +19,6 @@ public class RepoFactory {
     private static final boolean mock = false;
     private static final boolean legacy = false;
 
-    @Bean
     public static ArrivalTimesRepository getArrivalTimesRepository() {
         if (mock) {
             return new MockArrivalTimesRepository();
