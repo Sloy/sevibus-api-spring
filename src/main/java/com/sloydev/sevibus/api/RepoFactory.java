@@ -1,5 +1,7 @@
 package com.sloydev.sevibus.api;
 
+import com.fewlaps.quitnowcache.QNCache;
+import com.fewlaps.quitnowcache.QNCacheBuilder;
 import com.sloydev.sevibus.api.data.apptusam.AppTussamApi;
 import com.sloydev.sevibus.api.data.apptusam.AppTussamArrivalTimesRepository;
 import com.sloydev.sevibus.api.data.mock.MockArrivalTimesRepository;
@@ -27,14 +29,6 @@ public class RepoFactory {
         } else return new AppTussamArrivalTimesRepository(provideApi());
     }
 
-    private static SAXParser provideSaxParser() {
-        try {
-            return SAXParserFactory.newInstance().newSAXParser();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     @Bean(autowire = Autowire.BY_TYPE)
     private static AppTussamApi provideApi() {
         return new AppTussamApi();
@@ -44,4 +38,17 @@ public class RepoFactory {
         return new TussamArrivalsSaxHandler();
     }
 
+    @Bean
+    public QNCache cacheManager() {
+        return new QNCacheBuilder().createQNCache();
+    }
+
+    @Bean
+    private static SAXParser provideSaxParser() {
+        try {
+            return SAXParserFactory.newInstance().newSAXParser();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
