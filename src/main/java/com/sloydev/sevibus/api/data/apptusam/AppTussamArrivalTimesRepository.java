@@ -30,19 +30,18 @@ public class AppTussamArrivalTimesRepository implements ArrivalTimesRepository {
             Envelope envelope = appTussamApi.get(busStopNumber.toString());
             List<TiempoLinea> tiempos = envelope.body.tiemposNodoResponse.tiempoNodo.tiempoLineas;
             return tiempos.stream()
-              .map(this::arrivalFromTiempo)
+              .map(tiempoLinea -> arrivalFromTiempo(tiempoLinea, busStopNumber))
               .collect(Collectors.toList());
         } catch (Exception e) {
             throw new ArrivalTimesException(e, busStopNumber, "all");
         }
     }
 
-    private ArrivalTimes arrivalFromTiempo(TiempoLinea tiempoLinea) {
+    private ArrivalTimes arrivalFromTiempo(TiempoLinea tiempoLinea, int numeroParada) {
         ArrivalTimes arrivalTimes = new ArrivalTimes();
         arrivalTimes.setDataSource("apptussam");
         arrivalTimes.setBusLineName(tiempoLinea.label);
-        //TODO usar número de parada en la request
-        arrivalTimes.setBusStopNumber(99);
+        arrivalTimes.setBusStopNumber(numeroParada);
         arrivalTimes.setNextBus(busFromEstimacion(tiempoLinea.estimacion1));
         arrivalTimes.setSecondBus(busFromEstimacion(tiempoLinea.estimacion2));
         return arrivalTimes;
