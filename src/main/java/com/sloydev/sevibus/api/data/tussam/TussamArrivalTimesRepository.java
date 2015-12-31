@@ -11,7 +11,6 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,10 +22,12 @@ public class TussamArrivalTimesRepository implements ArrivalTimesRepository {
 
     private final SAXParser saxParser;
     private final TussamArrivalsSaxHandler tussamSaxHandler;
+    private final OkHttpClient client;
 
-    public TussamArrivalTimesRepository(SAXParser saxParser, TussamArrivalsSaxHandler tussamSaxHandler) {
+    public TussamArrivalTimesRepository(SAXParser saxParser, TussamArrivalsSaxHandler tussamSaxHandler, OkHttpClient client) {
         this.saxParser = saxParser;
         this.tussamSaxHandler = tussamSaxHandler;
+        this.client = client;
     }
 
     @Override public ArrivalTimes getArrival(Integer busStopNumber, String lineName) {
@@ -90,8 +91,6 @@ public class TussamArrivalTimesRepository implements ArrivalTimesRepository {
     }
 
     private InputStream getArrivalsInputStream(String lineName, String stopNumber) throws IOException {
-        OkHttpClient client = new OkHttpClient();
-
         MediaType mediaType = MediaType.parse("text/xml");
         RequestBody body = RequestBody.create(mediaType, String.format(BODY_SOAP_TIEMPOS, lineName, stopNumber));
         Request request = new Request.Builder()

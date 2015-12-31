@@ -1,7 +1,6 @@
 package com.sloydev.sevibus.api.data;
 
 import com.fewlaps.quitnowcache.QNCache;
-import com.sloydev.sevibus.api.RepoFactory;
 import com.sloydev.sevibus.api.domain.ArrivalTimes;
 import com.sloydev.sevibus.api.domain.ArrivalTimesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,17 +8,16 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
 public class CachedArrivalRepository implements ArrivalTimesRepository {
 
     private static final int CACHE_TTL = 10 * 1000;
     public static final String SOURCE_PREFIX = "cached_";
 
-    private final ArrivalTimesRepository real = RepoFactory.getArrivalTimesRepository();
+    private final ArrivalTimesRepository real;
     private final QNCache cache;
 
-    @Autowired
-    public CachedArrivalRepository(QNCache cache) {
+    public CachedArrivalRepository(ArrivalTimesRepository real, QNCache cache) {
+        this.real = real;
         this.cache = cache;
     }
 
