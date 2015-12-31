@@ -7,6 +7,7 @@ import org.simpleframework.xml.core.Persister;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.UUID;
 
 public class AppTussamApi {
 
@@ -28,12 +29,16 @@ public class AppTussamApi {
           .post(body)
           .addHeader("content-type", "text/xml;charset=utf-8")
           .addHeader("authorization", "Basic aW5mb3R1cy11c2VybW9iaWxlOjJpbmZvdHVzMHVzZXIxbW9iaWxlMg==")
-          .addHeader("deviceid", "A37-000000000000000")
+          .addHeader("deviceid", generateRandomDeviceId())
           .addHeader("cache-control", "no-cache")
           .build();
 
         Response response = client.newCall(request).execute();
         return response.body().byteStream();
 
+    }
+
+    private String generateRandomDeviceId() {
+        return UUID.randomUUID().toString();
     }
 }
