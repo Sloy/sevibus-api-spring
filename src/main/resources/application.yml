@@ -1,0 +1,3 @@
+firebase:
+    url: https://sevibus-stats.firebaseio.com/
+    account: ${FIREBASE_ACCOUNT}
