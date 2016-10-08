@@ -1,21 +1,25 @@
 package com.sloydev.sevibus.api.domain.stats;
 
 import com.google.common.base.Objects;
+import com.google.firebase.database.Exclude;
 
-import java.util.Date;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class ArrivalRequestStat {
 
+    private static final ZoneId ZONE_ID_SPAIN = ZoneId.of("Europe/Madrid");
+
     private final String parada;
     private final String userId;
-    private final long timestamp;
-    private final String readableTimestamp;
+    private Instant timestamp;
 
-    public ArrivalRequestStat(String parada, String userId, long timestamp) {
+    public ArrivalRequestStat(String parada, String userId, Instant timestamp) {
         this.parada = parada;
         this.userId = userId;
         this.timestamp = timestamp;
-        this.readableTimestamp = new Date(timestamp).toString();
     }
 
     public String getParada() {
@@ -27,11 +31,24 @@ public class ArrivalRequestStat {
     }
 
     public long getTimestamp() {
+        return timestamp
+                .toEpochMilli();
+    }
+
+    @Exclude
+    public Instant getInstant() {
         return timestamp;
     }
 
+    @Exclude
+    public ZonedDateTime getZonedDateTime() {
+        return timestamp
+                .atZone(ZONE_ID_SPAIN);
+    }
+
     public String getReadableTimestamp() {
-        return readableTimestamp;
+        return getZonedDateTime()
+                .format(DateTimeFormatter.ISO_DATE_TIME);
     }
 
     @Override
@@ -40,7 +57,6 @@ public class ArrivalRequestStat {
                 .add("parada", parada)
                 .add("userId", userId)
                 .add("timestamp", timestamp)
-                .add("readableTimestamp", readableTimestamp)
                 .toString();
     }
 }
