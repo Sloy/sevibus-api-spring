@@ -8,26 +8,17 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.logging.HttpLoggingInterceptor;
 import org.springframework.beans.factory.annotation.Autowire;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import java.io.ByteArrayInputStream;
-import java.io.FileNotFoundException;
-import java.util.Base64;
 
 @Configuration
 public class MoarConfiguration {
 
     private static final boolean logRequests = false;
-
-    @Value("${firebase.url}")
-    private String firebaseUrl;
-
-    @Value("${firebase.account}")
-    private String firebaseAccountBase64;
 
     @Bean
     public QNCache cacheManager() {
@@ -55,12 +46,11 @@ public class MoarConfiguration {
     }
 
     @Bean
-    public FirebaseDatabase provideFirebaseDatabase() throws FileNotFoundException {
-        byte[] decodedAccountJson = Base64.getDecoder().decode(firebaseAccountBase64);
-        System.out.println(firebaseAccountBase64);
+    public FirebaseDatabase provideFirebaseDatabase(FirebaseConfiguration configuration) {
+
         FirebaseOptions options = new FirebaseOptions.Builder()
-                .setServiceAccount(new ByteArrayInputStream(decodedAccountJson))
-                .setDatabaseUrl(firebaseUrl)
+                .setServiceAccount(new ByteArrayInputStream(configuration.getDecodedAccountBytes()))
+                .setDatabaseUrl(configuration.getUrl())
                 .build();
         FirebaseApp.initializeApp(options);
 
