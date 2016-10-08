@@ -5,6 +5,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Nullable;
+import java.time.Instant;
 
 import static java.util.Optional.ofNullable;
 
@@ -23,7 +24,8 @@ public class StatsService {
     public void createArrivalRequestStat(Integer parada, @Nullable String userId) {
         ArrivalRequestStat stat = new ArrivalRequestStat(String.valueOf(parada),
                 ofNullable(userId).orElse("anonymous"),
-                System.currentTimeMillis());
+                Instant.now());
+
         arrivalRequestStatRepository.putStat(stat);
     }
 }
