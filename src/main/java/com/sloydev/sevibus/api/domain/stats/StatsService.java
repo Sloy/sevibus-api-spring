@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Nullable;
 import java.time.Instant;
+import java.util.List;
 
 import static java.util.Optional.ofNullable;
 
@@ -27,5 +28,13 @@ public class StatsService {
                 Instant.now());
 
         arrivalRequestStatRepository.putStat(stat);
+    }
+
+    public List<ArrivalRequestStat> getByHour(Integer month, Integer day, Integer hour) {
+        return arrivalRequestStatRepository.getByMonthAndDayAndHour(month, day, hour);
+    }
+
+    public List<ArrivalRequestStat> getByDay(Integer month, Integer day) {
+        return arrivalRequestStatRepository.getByMonthAndDay(month, day);
     }
 }
