@@ -1,5 +1,6 @@
 package com.sloydev.sevibus.api.domain.stats;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.base.Objects;
 import com.google.firebase.database.Exclude;
 
@@ -36,11 +37,7 @@ public class ArrivalRequestStat {
     }
 
     @Exclude
-    public Instant getInstant() {
-        return timestamp;
-    }
-
-    @Exclude
+    @JsonIgnore
     public ZonedDateTime getZonedDateTime() {
         return timestamp
                 .atZone(ZONE_ID_SPAIN);

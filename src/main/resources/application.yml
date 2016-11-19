@@ -1,3 +1,5 @@
 firebase:
     url: ${FIREBASE_STATS_URL}
     accountBase64: ${FIREBASE_STATS_ACCOUNT}
+auth:
+    password: ${AUTH_PASSWORD}
