@@ -30,7 +30,7 @@ public class AppTussamArrivalTimesRepository implements ArrivalTimesRepository {
     @Override
     public List<ArrivalTimes> getArrivals(Integer busStopNumber, List<String> lines) {
         try {
-            Envelope envelope = appTussamApi.get(busStopNumber.toString());
+            Envelope envelope = appTussamApi.getArrival(busStopNumber.toString());
             List<TiempoLinea> tiempos = envelope.body.tiemposNodoResponse.tiempoNodo.tiempoLineas;
             return tiempos.stream()
               .map(tiempoLinea -> arrivalFromTiempo(tiempoLinea, busStopNumber))

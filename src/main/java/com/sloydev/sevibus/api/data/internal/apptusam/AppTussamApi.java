@@ -15,7 +15,8 @@ import java.util.UUID;
 public class AppTussamApi {
 
     private static final String URL_SOAP_DINAMICA = "http://www.infobustussam.com:9005/InfoTusWS/services/InfoTus?WSDL";
-    private static final String BODY_CONTENT = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<v:Envelope xmlns:v=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:c=\"http://schemas.xmlsoap.org/soap/encoding/\" xmlns:d=\"http://www.w3.org/2001/XMLSchema\" xmlns:i=\"http://www.w3.org/2001/XMLSchema-instance\">\n  <v:Header />\n  <v:Body>\n    <n0:getTiemposNodo xmlns:n0=\"http://services.infotusws.tussam.com/\" id=\"o0\" c:root=\"1\">\n      <codigo i:type=\"d:int\">%s</codigo>\n    </n0:getTiemposNodo>\n  </v:Body>\n</v:Envelope>";
+    private static final String ARRIVALS_BODY_CONTENT = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<v:Envelope xmlns:v=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:c=\"http://schemas.xmlsoap.org/soap/encoding/\" xmlns:d=\"http://www.w3.org/2001/XMLSchema\" xmlns:i=\"http://www.w3.org/2001/XMLSchema-instance\">\n  <v:Header />\n  <v:Body>\n    <n0:getTiemposNodo xmlns:n0=\"http://services.infotusws.tussam.com/\" id=\"o0\" c:root=\"1\">\n      <codigo i:type=\"d:int\">%s</codigo>\n    </n0:getTiemposNodo>\n  </v:Body>\n</v:Envelope>";
+    private static final String CARD_BODY_CONTENT = "<v:Envelope xmlns:i=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:d=\"http://www.w3.org/2001/XMLSchema\" xmlns:c=\"http://schemas.xmlsoap.org/soap/encoding/\" xmlns:v=\"http://schemas.xmlsoap.org/soap/envelope/\"><v:Header /><v:Body><n0:getCardState id=\"o0\" c:root=\"1\" xmlns:n0=\"http://services.infotusws.tussam.com/\"><chipNumber i:type=\"d:long\">%d</chipNumber><date i:type=\"d:string\">%s</date></n0:getCardState></v:Body></v:Envelope>";
 
     private final OkHttpClient client;
 
@@ -24,14 +25,14 @@ public class AppTussamApi {
         this.client = client;
     }
 
-    public Envelope get(String parada) throws Exception {
+    public Envelope getArrival(String parada) throws Exception {
         Serializer serializer = new Persister();
         return serializer.read(Envelope.class, getArrivalsInputStream(parada), false);
     }
 
     private InputStream getArrivalsInputStream(String stopNumber) throws IOException {
         MediaType mediaType = MediaType.parse("text/xml;charset=utf-8");
-        RequestBody body = RequestBody.create(mediaType, String.format(BODY_CONTENT, stopNumber));
+        RequestBody body = RequestBody.create(mediaType, String.format(ARRIVALS_BODY_CONTENT, stopNumber));
         Request request = new Request.Builder()
           .url(URL_SOAP_DINAMICA)
           .post(body)

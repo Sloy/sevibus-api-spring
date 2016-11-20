@@ -17,7 +17,7 @@ public class AppTussamController {
     @RequestMapping("/apptussam/{parada}")
     public Envelope apptussam(@PathVariable(value = "parada") String parada) {
         try {
-            return api.get(parada);
+            return api.getArrival(parada);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
