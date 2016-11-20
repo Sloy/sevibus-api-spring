@@ -1,6 +1,6 @@
-package com.sloydev.sevibus.api.data.apptusam;
+package com.sloydev.sevibus.api.data.internal.apptusam;
 
-import com.sloydev.sevibus.api.data.apptusam.model.Envelope;
+import com.sloydev.sevibus.api.data.internal.apptusam.arrivals.model.Envelope;
 import com.squareup.okhttp.*;
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;

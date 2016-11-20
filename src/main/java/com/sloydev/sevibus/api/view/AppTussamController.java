@@ -1,7 +1,7 @@
 package com.sloydev.sevibus.api.view;
 
-import com.sloydev.sevibus.api.data.apptusam.AppTussamApi;
-import com.sloydev.sevibus.api.data.apptusam.model.Envelope;
+import com.sloydev.sevibus.api.data.internal.apptusam.AppTussamApi;
+import com.sloydev.sevibus.api.data.internal.apptusam.arrivals.model.Envelope;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;

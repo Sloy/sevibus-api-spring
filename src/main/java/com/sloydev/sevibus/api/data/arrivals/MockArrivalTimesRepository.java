@@ -1,8 +1,8 @@
-package com.sloydev.sevibus.api.data.mock;
+package com.sloydev.sevibus.api.data.arrivals;
 
 
-import com.sloydev.sevibus.api.domain.ArrivalTimes;
-import com.sloydev.sevibus.api.domain.ArrivalTimesRepository;
+import com.sloydev.sevibus.api.domain.arrivals.ArrivalTimes;
+import com.sloydev.sevibus.api.domain.arrivals.ArrivalTimesRepository;
 
 import java.util.List;
 import java.util.Random;

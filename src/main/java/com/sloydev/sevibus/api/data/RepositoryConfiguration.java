@@ -1,12 +1,13 @@
 package com.sloydev.sevibus.api.data;
 
 import com.fewlaps.quitnowcache.QNCache;
-import com.sloydev.sevibus.api.data.apptusam.AppTussamApi;
-import com.sloydev.sevibus.api.data.apptusam.AppTussamArrivalTimesRepository;
-import com.sloydev.sevibus.api.data.mock.MockArrivalTimesRepository;
-import com.sloydev.sevibus.api.data.tussam.TussamArrivalTimesRepository;
-import com.sloydev.sevibus.api.data.tussam.TussamArrivalsSaxHandler;
-import com.sloydev.sevibus.api.domain.ArrivalTimesRepository;
+import com.sloydev.sevibus.api.data.arrivals.CachedArrivalRepository;
+import com.sloydev.sevibus.api.data.internal.apptusam.AppTussamApi;
+import com.sloydev.sevibus.api.data.arrivals.AppTussamArrivalTimesRepository;
+import com.sloydev.sevibus.api.data.arrivals.MockArrivalTimesRepository;
+import com.sloydev.sevibus.api.data.internal.tussam.TussamArrivalTimesRepository;
+import com.sloydev.sevibus.api.data.internal.tussam.TussamArrivalsSaxHandler;
+import com.sloydev.sevibus.api.domain.arrivals.ArrivalTimesRepository;
 import com.squareup.okhttp.OkHttpClient;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
