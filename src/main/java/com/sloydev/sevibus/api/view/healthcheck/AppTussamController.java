@@ -1,4 +1,4 @@
-package com.sloydev.sevibus.api.view;
+package com.sloydev.sevibus.api.view.healthcheck;
 
 import com.sloydev.sevibus.api.data.internal.apptusam.AppTussamApi;
 import com.sloydev.sevibus.api.data.internal.apptusam.arrivals.model.ArrivalsEnvelope;

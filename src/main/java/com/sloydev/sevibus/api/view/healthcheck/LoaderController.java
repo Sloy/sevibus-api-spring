@@ -1,4 +1,4 @@
-package com.sloydev.sevibus.api.view;
+package com.sloydev.sevibus.api.view.healthcheck;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

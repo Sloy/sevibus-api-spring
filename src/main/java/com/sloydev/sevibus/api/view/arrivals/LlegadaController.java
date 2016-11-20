@@ -1,4 +1,4 @@
-package com.sloydev.sevibus.api.view;
+package com.sloydev.sevibus.api.view.arrivals;
 
 import com.sloydev.sevibus.api.domain.arrivals.ArrivalTimes;
 import com.sloydev.sevibus.api.domain.arrivals.ArrivalTimesRepository;
