@@ -2,7 +2,7 @@ package com.sloydev.sevibus.api.data.arrivals;
 
 
 import com.sloydev.sevibus.api.data.internal.apptusam.AppTussamApi;
-import com.sloydev.sevibus.api.data.internal.apptusam.arrivals.model.Envelope;
+import com.sloydev.sevibus.api.data.internal.apptusam.arrivals.model.ArrivalsEnvelope;
 import com.sloydev.sevibus.api.data.internal.apptusam.arrivals.model.Estimacion;
 import com.sloydev.sevibus.api.data.internal.apptusam.arrivals.model.TiempoLinea;
 import com.sloydev.sevibus.api.domain.arrivals.ArrivalTimes;
@@ -30,8 +30,8 @@ public class AppTussamArrivalTimesRepository implements ArrivalTimesRepository {
     @Override
     public List<ArrivalTimes> getArrivals(Integer busStopNumber, List<String> lines) {
         try {
-            Envelope envelope = appTussamApi.getArrival(busStopNumber.toString());
-            List<TiempoLinea> tiempos = envelope.body.tiemposNodoResponse.tiempoNodo.tiempoLineas;
+            ArrivalsEnvelope arrivalsEnvelope = appTussamApi.getArrival(busStopNumber.toString());
+            List<TiempoLinea> tiempos = arrivalsEnvelope.body.tiemposNodoResponse.tiempoNodo.tiempoLineas;
             return tiempos.stream()
               .map(tiempoLinea -> arrivalFromTiempo(tiempoLinea, busStopNumber))
               .collect(Collectors.toList());

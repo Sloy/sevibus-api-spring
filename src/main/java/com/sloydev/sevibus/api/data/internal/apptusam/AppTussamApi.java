@@ -1,6 +1,7 @@
 package com.sloydev.sevibus.api.data.internal.apptusam;
 
-import com.sloydev.sevibus.api.data.internal.apptusam.arrivals.model.Envelope;
+import com.sloydev.sevibus.api.data.internal.apptusam.arrivals.model.ArrivalsEnvelope;
+import com.sloydev.sevibus.api.data.internal.apptusam.card.model.CardEnvelope;
 import com.squareup.okhttp.*;
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
@@ -9,6 +10,8 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
 @Component
@@ -25,9 +28,14 @@ public class AppTussamApi {
         this.client = client;
     }
 
-    public Envelope getArrival(String parada) throws Exception {
+    public ArrivalsEnvelope getArrival(String parada) throws Exception {
         Serializer serializer = new Persister();
-        return serializer.read(Envelope.class, getArrivalsInputStream(parada), false);
+        return serializer.read(ArrivalsEnvelope.class, getArrivalsInputStream(parada), false);
+    }
+
+    public CardEnvelope getCard(Long numero) throws Exception {
+        Serializer serializer = new Persister();
+        return serializer.read(CardEnvelope.class, getCardInputStream(numero), false);
     }
 
     private InputStream getArrivalsInputStream(String stopNumber) throws IOException {
@@ -45,6 +53,23 @@ public class AppTussamApi {
         Response response = client.newCall(request).execute();
         return response.body().byteStream();
 
+    }
+
+    private InputStream getCardInputStream(Long numero) throws IOException {
+        String date = LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        MediaType mediaType = MediaType.parse("text/xml;charset=utf-8");
+        RequestBody body = RequestBody.create(mediaType, String.format(CARD_BODY_CONTENT, numero, date));
+        Request request = new Request.Builder()
+                .url(URL_SOAP_DINAMICA)
+                .post(body)
+                .addHeader("content-type", "text/xml;charset=utf-8")
+                .addHeader("authorization", "Basic aW5mb3R1cy11c2VybW9iaWxlOjJpbmZvdHVzMHVzZXIxbW9iaWxlMg==")
+                .addHeader("deviceid", generateRandomDeviceId())
+                .addHeader("cache-control", "no-cache")
+                .build();
+
+        Response response = client.newCall(request).execute();
+        return response.body().byteStream();
     }
 
     private String generateRandomDeviceId() {

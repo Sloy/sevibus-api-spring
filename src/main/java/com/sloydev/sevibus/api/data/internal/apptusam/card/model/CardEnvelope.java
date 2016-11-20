@@ -1,10 +1,10 @@
-package com.sloydev.sevibus.api.data.internal.apptusam.arrivals.model;
+package com.sloydev.sevibus.api.data.internal.apptusam.card.model;
 
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
 @Root(name="Envelope")
-public class Envelope {
+public class CardEnvelope {
 
     @Element(name="Body")
     public Body body;
