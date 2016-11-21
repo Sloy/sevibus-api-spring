@@ -10,13 +10,13 @@ public class State {
     @Element(name="passCode")
     public Integer passCode;
 
-    @Element(name="passName")
+    @Element(name="passName", required = false)
     public String passName;
 
-    @Element(name="lastOpDate")
+    @Element(name="lastOpDate", required = false)
     public String lastOpDate;
 
-    @Element(name="expiryDate")
+    @Element(name="expiryDate", required = false)
     public String expiryDate;
 
     @Element(name="moneyCredit")
