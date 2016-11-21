@@ -1,25 +1,22 @@
 package com.sloydev.sevibus.api.data.internal.apptusam.card.model;
 
 import org.simpleframework.xml.Element;
-import org.simpleframework.xml.ElementList;
-
-import java.util.List;
 
 public class State {
 
     @Element(name="chipNumber")
-    public Integer chipNumber;
+    public Long chipNumber;
 
     @Element(name="passCode")
     public Integer passCode;
 
-    @Element(name="passName")
+    @Element(name="passName", required = false)
     public String passName;
 
-    @Element(name="lastOpDate")
+    @Element(name="lastOpDate", required = false)
     public String lastOpDate;
 
-    @Element(name="expiryDate")
+    @Element(name="expiryDate", required = false)
     public String expiryDate;
 
     @Element(name="moneyCredit")
