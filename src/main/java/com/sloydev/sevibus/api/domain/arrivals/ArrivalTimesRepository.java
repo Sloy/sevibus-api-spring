@@ -1,4 +1,4 @@
-package com.sloydev.sevibus.api.domain;
+package com.sloydev.sevibus.api.domain.arrivals;
 
 
 import java.util.List;

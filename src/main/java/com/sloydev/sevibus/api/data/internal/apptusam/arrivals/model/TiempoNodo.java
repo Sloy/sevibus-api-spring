@@ -1,4 +1,4 @@
-package com.sloydev.sevibus.api.data.apptusam.model;
+package com.sloydev.sevibus.api.data.internal.apptusam.arrivals.model;
 
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.ElementList;

@@ -1,4 +1,4 @@
-package com.sloydev.sevibus.api.data.tussam;
+package com.sloydev.sevibus.api.data.internal.tussam;
 
 
 import org.springframework.stereotype.Component;

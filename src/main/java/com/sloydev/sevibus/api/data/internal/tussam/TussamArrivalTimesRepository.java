@@ -1,9 +1,9 @@
-package com.sloydev.sevibus.api.data.tussam;
+package com.sloydev.sevibus.api.data.internal.tussam;
 
 
-import com.sloydev.sevibus.api.domain.ArrivalTimes;
-import com.sloydev.sevibus.api.domain.ArrivalTimesException;
-import com.sloydev.sevibus.api.domain.ArrivalTimesRepository;
+import com.sloydev.sevibus.api.domain.arrivals.ArrivalTimes;
+import com.sloydev.sevibus.api.domain.arrivals.ArrivalTimesException;
+import com.sloydev.sevibus.api.domain.arrivals.ArrivalTimesRepository;
 import com.squareup.okhttp.*;
 import org.xml.sax.SAXException;
 

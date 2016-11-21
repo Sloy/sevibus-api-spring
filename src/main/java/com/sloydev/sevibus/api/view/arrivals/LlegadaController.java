@@ -1,7 +1,7 @@
-package com.sloydev.sevibus.api.view;
+package com.sloydev.sevibus.api.view.arrivals;
 
-import com.sloydev.sevibus.api.domain.ArrivalTimes;
-import com.sloydev.sevibus.api.domain.ArrivalTimesRepository;
+import com.sloydev.sevibus.api.domain.arrivals.ArrivalTimes;
+import com.sloydev.sevibus.api.domain.arrivals.ArrivalTimesRepository;
 import com.sloydev.sevibus.api.domain.stats.StatsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

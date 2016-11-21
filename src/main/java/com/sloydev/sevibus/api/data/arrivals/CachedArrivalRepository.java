@@ -1,10 +1,8 @@
-package com.sloydev.sevibus.api.data;
+package com.sloydev.sevibus.api.data.arrivals;
 
 import com.fewlaps.quitnowcache.QNCache;
-import com.sloydev.sevibus.api.domain.ArrivalTimes;
-import com.sloydev.sevibus.api.domain.ArrivalTimesRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import com.sloydev.sevibus.api.domain.arrivals.ArrivalTimes;
+import com.sloydev.sevibus.api.domain.arrivals.ArrivalTimesRepository;
 
 import java.util.List;
 
