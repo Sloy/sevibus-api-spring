@@ -2,7 +2,7 @@ package com.sloydev.sevibus.api.view.card;
 
 public class LegacyCardViewModel {
 
-    public final Integer number;
+    public final Long number;
     public final String type;
     public final String lastOperationDate;
     public final String expirationDate;
@@ -22,7 +22,7 @@ public class LegacyCardViewModel {
 
 
     public static final class Builder {
-        private Integer number;
+        private Long number;
         private String type;
         private String lastOperationDate;
         private String expirationDate;
@@ -35,7 +35,7 @@ public class LegacyCardViewModel {
             return new LegacyCardViewModel(this);
         }
 
-        public Builder number(Integer number) {
+        public Builder number(Long number) {
             this.number = number;
             return this;
         }

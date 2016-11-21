@@ -1,5 +1,6 @@
 package com.sloydev.sevibus.api.domain.stats;
 
+import com.sloydev.sevibus.api.view.card.LegacyCardViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
@@ -15,10 +16,12 @@ import static java.util.Optional.ofNullable;
 public class StatsService {
 
     private final ArrivalRequestStatRepository arrivalRequestStatRepository;
+    private final LegacyCardStatRepository legacyCardStatRepository;
 
     @Autowired
-    public StatsService(ArrivalRequestStatRepository arrivalRequestStatRepository) {
+    public StatsService(ArrivalRequestStatRepository arrivalRequestStatRepository, LegacyCardStatRepository legacyCardStatRepository) {
         this.arrivalRequestStatRepository = arrivalRequestStatRepository;
+        this.legacyCardStatRepository = legacyCardStatRepository;
     }
 
     @Async
@@ -28,6 +31,28 @@ public class StatsService {
                 Instant.now());
 
         arrivalRequestStatRepository.putStat(stat);
+    }
+
+    @Async
+    public void createLegacyCardStat(LegacyCardViewModel legacyCardViewModel, String userId) {
+        LegacyCardStat legacyCardStat = LegacyCardStat.create()
+                .number(legacyCardViewModel.number)
+                .cardInfoResult(legacyCardViewModel)
+                .updatedAt(Instant.now())
+                .userId(ofNullable(userId).orElse("anonymous"))
+                .build();
+        legacyCardStatRepository.put(legacyCardStat);
+    }
+
+    @Async
+    public void createLegacyCardStat(Long number, Exception error, String userId) {
+        LegacyCardStat legacyCardStat = LegacyCardStat.create()
+                .number(number)
+                .error(error)
+                .updatedAt(Instant.now())
+                .userId(ofNullable(userId).orElse("anonymous"))
+                .build();
+        legacyCardStatRepository.put(legacyCardStat);
     }
 
     public List<ArrivalRequestStat> getByHour(Integer month, Integer day, Integer hour) {

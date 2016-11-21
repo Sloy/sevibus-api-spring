@@ -1,14 +1,11 @@
 package com.sloydev.sevibus.api.data.internal.apptusam.card.model;
 
 import org.simpleframework.xml.Element;
-import org.simpleframework.xml.ElementList;
-
-import java.util.List;
 
 public class State {
 
     @Element(name="chipNumber")
-    public Integer chipNumber;
+    public Long chipNumber;
 
     @Element(name="passCode")
     public Integer passCode;
