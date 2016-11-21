@@ -38,6 +38,9 @@ public class LegacyCardController {
 
     private static LegacyCardViewModel map(CardEnvelope cardEnvelope) {
         State apiModel = cardEnvelope.body.cardStateResponse.state;
+        if (apiModel.resultCode != 0) {
+            throw new IllegalStateException("Result code not successful");
+        }
         return LegacyCardViewModel.create()
                 .number(apiModel.chipNumber)
                 .type(apiModel.passName)
