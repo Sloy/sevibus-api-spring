@@ -28,7 +28,7 @@ public class LegacyCardController {
             @RequestHeader(value = "userId", required = false) String userId) {
         try {
             LegacyCardViewModel responseViewModel = map(appTussamApi.getCard(number));
-            statsService.createLegacyCardStat(responseViewModel, userId);
+//            statsService.createLegacyCardStat(responseViewModel, userId);
             return responseViewModel;
         } catch (Exception error) {
             statsService.createLegacyCardStat(number, error, userId);
@@ -42,7 +42,7 @@ public class LegacyCardController {
             throw new IllegalStateException("Result code not successful");
         }
         return LegacyCardViewModel.create()
-                .number(apiModel.chipNumber)
+                .number(42L)
                 .type(apiModel.passName)
                 .expirationDate(apiModel.expiryDate)
                 .lastOperationDate(apiModel.lastOpDate)
