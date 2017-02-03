@@ -28,8 +28,8 @@ public class LegacyCardController {
             @RequestHeader(value = "userId", required = false) String userId) {
         try {
             LegacyCardViewModel responseViewModel = map(appTussamApi.getCard(number));
-//            statsService.createLegacyCardStat(responseViewModel, userId);
-            return responseViewModel;
+            statsService.createLegacyCardStat(responseViewModel, userId);
+            return fakeNumber(responseViewModel);
         } catch (Exception error) {
             statsService.createLegacyCardStat(number, error, userId);
             throw new RuntimeException(error);
@@ -42,11 +42,22 @@ public class LegacyCardController {
             throw new IllegalStateException("Result code not successful");
         }
         return LegacyCardViewModel.create()
-                .number(42L)
+                .number(apiModel.chipNumber)
                 .type(parseType(apiModel))
                 .expirationDate(apiModel.expiryDate)
                 .lastOperationDate(apiModel.lastOpDate)
                 .credit(apiModel.moneyCredit / 1000d)
+                .build();
+    }
+
+    //FIXME this is an ugly patch because the app doesn't support Long as ids
+    private static LegacyCardViewModel fakeNumber(LegacyCardViewModel original) {
+        return LegacyCardViewModel.create()
+                .number(42L)
+                .type(original.type)
+                .expirationDate(original.expirationDate)
+                .lastOperationDate(original.lastOperationDate)
+                .credit(original.credit)
                 .build();
     }
 
