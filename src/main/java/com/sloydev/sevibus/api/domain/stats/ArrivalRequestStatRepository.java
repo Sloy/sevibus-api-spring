@@ -9,4 +9,6 @@ public interface ArrivalRequestStatRepository {
     List<ArrivalRequestStat> getByMonthAndDayAndHour(int month, int day, int hour);
 
     List<ArrivalRequestStat> getByMonthAndDay(int month, int day);
+
+    void removeByMonth(Integer month);
 }

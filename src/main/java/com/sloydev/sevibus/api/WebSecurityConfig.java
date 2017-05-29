@@ -27,6 +27,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/stats/**").authenticated()
                 .anyRequest().permitAll();
         http.httpBasic();
+        http.csrf().disable();
     }
 
 }

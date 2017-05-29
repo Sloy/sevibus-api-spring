@@ -59,9 +59,19 @@ public class ArrivalRequestStatRepositoryImpl implements ArrivalRequestStatRepos
                 .collect(Collectors.toList());
     }
 
-    private DatabaseReference getDayReference(int month, int day) {
+    @Override
+    public void removeByMonth(Integer month) {
+        getMonthReference(month)
+                .removeValue();
+    }
+
+    private DatabaseReference getMonthReference(int month) {
         return firebaseDatabase.getReference(FIREBASE_PATH)
-                .child(String.valueOf(month))
+                .child(String.valueOf(month));
+    }
+
+    private DatabaseReference getDayReference(int month, int day) {
+        return getMonthReference(month)
                 .child(String.valueOf(day));
     }
 

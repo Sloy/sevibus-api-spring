@@ -5,6 +5,7 @@ import com.sloydev.sevibus.api.domain.stats.StatsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -29,6 +30,12 @@ public class StatsController {
             @PathVariable(value = "month") Integer month,
             @PathVariable(value = "day") Integer day) {
         return statsService.getByDay(month, day);
+    }
+
+    @RequestMapping(value = "/stats/arrivals/{month}/", method = RequestMethod.DELETE)
+    public void deleteArrivalStatsByMonth(
+            @PathVariable(value = "month") Integer month) {
+        statsService.deleteByMonth(month);
     }
 
 }

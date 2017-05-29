@@ -62,4 +62,8 @@ public class StatsService {
     public List<ArrivalRequestStat> getByDay(Integer month, Integer day) {
         return arrivalRequestStatRepository.getByMonthAndDay(month, day);
     }
+
+    public void deleteByMonth(Integer month) {
+        arrivalRequestStatRepository.removeByMonth(month);
+    }
 }
