@@ -43,10 +43,17 @@ public class LegacyCardController {
         }
         return LegacyCardViewModel.create()
                 .number(apiModel.chipNumber)
-                .type(apiModel.passName)
+                .type(compatType(apiModel))
                 .expirationDate(apiModel.expiryDate)
                 .lastOperationDate(apiModel.lastOpDate)
                 .credit(apiModel.moneyCredit / 1000d)
                 .build();
+    }
+
+    private static String compatType(State apiModel) {
+        return apiModel.passName
+                .replaceAll("Bonobús saldo CT", "saldo con transbordo")
+                .replaceAll("Bonobús saldo ST", "saldo sin transbordo")
+                ;
     }
 }
