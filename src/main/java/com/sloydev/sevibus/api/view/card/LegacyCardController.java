@@ -38,7 +38,7 @@ public class LegacyCardController {
 
     private static LegacyCardViewModel map(CardEnvelope cardEnvelope) {
         State apiModel = cardEnvelope.body.cardStateResponse.state;
-        if (apiModel.resultCode != 0) {
+        if (apiModel.resultCode == 2) { // Dunno what resultCode is, but wrong numbers have value of "2"
             throw new IllegalStateException("Result code not successful");
         }
         return LegacyCardViewModel.create()
