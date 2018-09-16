@@ -31,6 +31,8 @@ dependencies {
     compile 'org.simpleframework:simple-xml:2.7.1'
     compile 'com.google.firebase:firebase-server-sdk:3.0.1'
     compile "io.javaslang:javaslang:2.0.4"
+    compile 'com.squareup.retrofit2:retrofit:2.4.0'
+    compile 'com.squareup.retrofit2:converter-gson:+'
     testCompile("junit:junit")
 }
 

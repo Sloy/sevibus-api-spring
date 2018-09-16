@@ -5,20 +5,23 @@ import com.fewlaps.quitnowcache.QNCacheBuilder;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.database.FirebaseDatabase;
+import com.sloydev.sevibus.api.data.internal.AppTussamJsonHeadersInterceptor;
+import com.sloydev.sevibus.api.data.internal.apptussamjson.AppTussamJsonApi;
+import java.io.ByteArrayInputStream;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import org.springframework.beans.factory.annotation.Autowire;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
-import java.io.ByteArrayInputStream;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 @Configuration
 public class MoarConfiguration {
 
-    private static final boolean logRequests = false;
+    private static final boolean logRequests = true;
 
     @Bean
     public QNCache cacheManager() {
@@ -36,13 +39,12 @@ public class MoarConfiguration {
 
     @Bean(autowire = Autowire.BY_TYPE)
     public OkHttpClient provideOkHttpClient() {
-        OkHttpClient client = new OkHttpClient();
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
         if (logRequests) {
-            HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-            logging.setLevel(HttpLoggingInterceptor.Level.BODY);
-            client.interceptors().add(logging);
+            builder.addInterceptor(new HttpLoggingInterceptor()
+                    .setLevel(HttpLoggingInterceptor.Level.BODY));
         }
-        return client;
+        return builder.build();
     }
 
     @Bean
@@ -55,5 +57,18 @@ public class MoarConfiguration {
         FirebaseApp.initializeApp(options);
 
         return FirebaseDatabase.getInstance();
+    }
+
+    @Bean
+    public AppTussamJsonApi provideAppTussamJsonApi(OkHttpClient client) {
+        OkHttpClient customClient = client.newBuilder()
+                .addInterceptor(new AppTussamJsonHeadersInterceptor())
+                .build();
+        return new Retrofit.Builder()
+                .baseUrl(AppTussamJsonApi.URL_BASE)
+                .client(customClient)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+                .create(AppTussamJsonApi.class);
     }
 }
