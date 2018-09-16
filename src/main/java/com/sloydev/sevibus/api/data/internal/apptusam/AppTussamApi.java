@@ -2,7 +2,7 @@ package com.sloydev.sevibus.api.data.internal.apptusam;
 
 import com.sloydev.sevibus.api.data.internal.apptusam.arrivals.model.ArrivalsEnvelope;
 import com.sloydev.sevibus.api.data.internal.apptusam.card.model.CardEnvelope;
-import com.squareup.okhttp.*;
+import okhttp3.*;
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
 import org.springframework.beans.factory.annotation.Autowired;

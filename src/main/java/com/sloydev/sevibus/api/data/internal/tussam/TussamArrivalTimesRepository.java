@@ -4,7 +4,7 @@ package com.sloydev.sevibus.api.data.internal.tussam;
 import com.sloydev.sevibus.api.domain.arrivals.ArrivalTimes;
 import com.sloydev.sevibus.api.domain.arrivals.ArrivalTimesException;
 import com.sloydev.sevibus.api.domain.arrivals.ArrivalTimesRepository;
-import com.squareup.okhttp.*;
+import okhttp3.*;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;

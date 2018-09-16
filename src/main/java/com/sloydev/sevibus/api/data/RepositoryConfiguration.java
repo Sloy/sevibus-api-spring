@@ -8,7 +8,7 @@ import com.sloydev.sevibus.api.data.arrivals.MockArrivalTimesRepository;
 import com.sloydev.sevibus.api.data.internal.tussam.TussamArrivalTimesRepository;
 import com.sloydev.sevibus.api.data.internal.tussam.TussamArrivalsSaxHandler;
 import com.sloydev.sevibus.api.domain.arrivals.ArrivalTimesRepository;
-import com.squareup.okhttp.OkHttpClient;
+import okhttp3.OkHttpClient;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
