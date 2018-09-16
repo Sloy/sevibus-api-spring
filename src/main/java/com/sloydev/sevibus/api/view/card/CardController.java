@@ -23,7 +23,7 @@ public class CardController {
     }
 
     @RequestMapping("/card/{number}")
-    public CardStatusTussamModel getCard(
+    public CardViewModel getCard(
             @PathVariable(value = "number") Long number,
             @RequestHeader(value = "userId", required = false) String userId) {
         try {
@@ -31,7 +31,7 @@ public class CardController {
             if (response.isSuccessful()) {
                 CardStatusTussamModel cardModel = response.body();
                 statsService.createCardStat(cardModel, userId);
-                return cardModel;
+                return CardViewModelMapper.map(cardModel);
             } else {
                 String message = String.format("AppTussam API response error! HttpCode=%d; Body=%s",
                         response.code(),
