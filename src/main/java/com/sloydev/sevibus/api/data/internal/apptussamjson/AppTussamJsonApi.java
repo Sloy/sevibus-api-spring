@@ -9,5 +9,5 @@ public interface AppTussamJsonApi {
     String URL_BASE = "http://94.198.88.152:9005/INFOTUS/API/";
 
     @GET("estadoTarjeta/{numeroSerie}")
-    Call<EstadoTarjeta> estadoTajeta(@Path("numeroSerie") Long numeroSerie);
+    Call<CardStatusTussamModel> estadoTajeta(@Path("numeroSerie") Long numeroSerie);
 }

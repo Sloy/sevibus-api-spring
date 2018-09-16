@@ -3,7 +3,7 @@ package com.sloydev.sevibus.api.view.healthcheck;
 import com.sloydev.sevibus.api.data.internal.apptusam.AppTussamApi;
 import com.sloydev.sevibus.api.data.internal.apptusam.arrivals.model.ArrivalsEnvelope;
 import com.sloydev.sevibus.api.data.internal.apptussamjson.AppTussamJsonApi;
-import com.sloydev.sevibus.api.data.internal.apptussamjson.EstadoTarjeta;
+import com.sloydev.sevibus.api.data.internal.apptussamjson.CardStatusTussamModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,7 +33,7 @@ public class AppTussamController {
     @RequestMapping("/apptussam/card/{number}")
     public ResponseEntity<Object> card(@PathVariable(value = "number") Long number) {
         try {
-            Response<EstadoTarjeta> response = jsonApi.estadoTajeta(number)
+            Response<CardStatusTussamModel> response = jsonApi.estadoTajeta(number)
                     .execute();
             if (response.isSuccessful()) {
                 return new ResponseEntity<>(response.body(), HttpStatus.OK);

@@ -1,6 +1,6 @@
 package com.sloydev.sevibus.api.data.internal.apptussamjson;
 
-public class EstadoTarjeta {
+public class CardStatusTussamModel {
     private final Long numeroSerie;//  3771898948,
     private final Long codigoTitulo;//  31,
     private final String nombreTitulo;//  "Bonobús saldo ST",
@@ -10,7 +10,7 @@ public class EstadoTarjeta {
     private final Long resultado;//  0,
     private final String caducidad;//  "Tarjeta sin caducidad"
 
-    public EstadoTarjeta(Long numeroSerie, Long codigoTitulo, String nombreTitulo, String ultimaOperacion, Long saldoMonedero,
+    public CardStatusTussamModel(Long numeroSerie, Long codigoTitulo, String nombreTitulo, String ultimaOperacion, Long saldoMonedero,
             Long saldoViajes, Long resultado, String caducidad) {
         this.numeroSerie = numeroSerie;
         this.codigoTitulo = codigoTitulo;
